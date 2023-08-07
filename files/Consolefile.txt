@@ -1,0 +1,1878 @@
+40 Coding Challenges (SOLVED with CODE) To Kill Your Next Coding Interview
+  Arrays  21  
+  Binary Tree  26  
+  Bit Manipulation  12  
+  Fibonacci Series  14  
+  Hash Tables  31  
+  Linked Lists  43  
+  Queues  14  
+  Searching  24  
+  Stacks  25  
+  Strings  25  
+  Heaps and Maps  12  
+  Sorting  26  
+You may hate code challenges and coding interviews but reality is a lot of companies from Google to Amazon do care that you understand the difference between O(n log n) and O(n²), that you do understand when different data structures are appropriate, and that you can leverage these (very basic) skills to solve simple problems. Follow along and check 40 most common Coding Challenges and Questions that solved with code on Java, C#, Python and JS to crack and close your next coding interview.
+Q1: Convert a Single Linked List to a Double Linked List
+Junior 
+  Linked Lists  43  
+Answer
+A doubly linked list is simply a linked list where every element has both next and prev mebers, pointing at the elements before and after it, not just the one after it in a single linked list.
+so to convert your list to a doubly linked list, just change your node to be:
+private class Node
+{
+    Picture data;
+    Node pNext;
+    Node pPrev;
+};
+and when iterating the list, on each new node add a reference to the previous node.
+Having Tech or Coding Interview? Check 👉 43 Linked Lists Interview Questions
+Source: stackoverflow.com
+Q2: Convert a Singly Linked List to Circular Linked List
+Junior 
+  Linked Lists  43  
+Answer
+To convert a singly linked list to a circular linked list, we will set the next pointer of the tail node to the head pointer.
+Create a copy of the head pointer, let's say temp.
+Using a loop, traverse linked list till tail node (last node) using temp pointer.
+Now set the next pointer of the tail node to head node. temp->next = head
+Implementation
+Python PY
+def convertTocircular(head):
+    # declare a node variable
+    # start and assign head
+    # node into start node.
+    start = head
+    
+    # check that
+    while head.next
+    # not equal to null then head
+    # points to next node.
+    while(head.next is not None):
+      head = head.next
+    
+    #
+    if head.next points to null
+    # then start assign to the
+    # head.next node.
+    head.next = start
+    return start
+Having Tech or Coding Interview? Check 👉 43 Linked Lists Interview Questions
+Source: www.techcrashcourse.com
+Q3: Detect if a List is Cyclic using Hash Table
+Junior 
+  Linked Lists  43  
+Answer
+To detect if a list is cyclic, we can check whether a node had been visited before. A natural way is to use a hash table.
+Algorithm
+We go through each node one by one and record each node's reference (or memory address) in a hash table. If the current node is null, we have reached the end of the list and it must not be cyclic. If current node’s reference is in the hash table, then return true.
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Time complexity : O(n) . We visit each of the n elements in the list at most once. Adding a node to the hash table costs only O(1) time.
+Space complexity: O(n) . The space depends on the number of elements added to the hash table, which contains at most n elements.
+Implementation
+Java Java
+public boolean hasCycle(ListNode head) {
+    Set<ListNode> nodesSeen = new HashSet<>();
+    while (head != null) {
+        if (nodesSeen.contains(head)) {
+            return true;
+        } else {
+            nodesSeen.add(head);
+        }
+        head = head.next;
+    }
+    return false;
+}
+Having Tech or Coding Interview? Check 👉 43 Linked Lists Interview Questions
+Source: leetcode.com
+Q4: Implement Stack using Two Queues (with efficient push)
+Junior 
+  Queues  14  
+Problem
+Given two queues with their standard operations (enqueue, dequeue, isempty, size), implement a stack with its standard operations (pop, push, isempty, size). The stack should be efficient when pushing an item.
+Answer
+Given we have queue1 and queue2:
+push - O(1):
+enqueue in queue1
+pop - O(n):
+while size of queue1 is bigger than 1, pipe (dequeue + enqueue) dequeued items from queue1 into queue2
+dequeue and return the last item of queue1, then switch the names of queue1 and queue2
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+If queue is implemented as linked list the enqueue operation has O(1) time complexity.
+Implementation
+Java Java
+public Stack<E> {
+    private Queue<E> q1 = new Queue<E>();
+    private Queue<E> q2 = new Queue<E>();
+
+    public void push(E x) {
+        q1.enqueue(x);
+    }
+
+    public E pop() {
+        while (q1.size() > 1) {
+            q2.enqueue(q1.dequeue());
+        }
+        E pop = q1.dequeue();
+        Queue<E> temp = q1;
+        q1 = q2;
+        q2 = temp;
+        return pop;
+    }
+}
+Having Tech or Coding Interview? Check 👉 14 Queues Interview Questions
+Source: stackoverflow.com
+Q5: Implement a Queue using two Stacks
+Junior 
+  Queues  14  
+Problem
+Suppose we have two stacks and no other temporary variable. Is to possible to "construct" a queue data structure using only the two stacks?
+Answer
+Keep two stacks, let's call them inbox and outbox.
+Enqueue:
+Push the new element onto inbox
+Dequeue:
+If outbox is empty, refill it by popping each element from inbox and pushing it onto outbox
+Pop and return the top element from outbox
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+In the worst case scenario when outbox stack is empty, the algorithm pops n elements from inbox stack and pushes n elements to outbox, where n is the queue size. This gives 2*n operations, which is O(n). But when outbox stack is not empty the algorithm has O(1) time complexity that gives amortised O(1).
+Implementation
+C# CS
+JavaScript JS
+Java Java
+Python PY
+public class Queue<T> where T : class
+{
+    private Stack<T> input = new Stack<T>();
+    private Stack<T> output = new Stack<T>();
+
+    public void Enqueue(T t)
+    {
+        input.Push(t);
+    }
+
+    public T Dequeue()
+    {
+        if (output.Count == 0)
+        {
+            while (input.Count != 0)
+            {
+                output.Push(input.Pop());
+            }
+        }
+
+        return output.Pop();
+    }
+}
+Having Tech or Coding Interview? Check 👉 14 Queues Interview Questions
+Source: stackoverflow.com
+8 Steps to Increase Your Dev Resume Response Rate by 90%
+  Career  1  
+Q6: Insert item into the Heap. Explain your actions.
+Junior 
+  Heaps and Maps  12  
+Problem
+Suppose I have a Heap Like the following:
+     77
+    /  \
+   /    \
+  50    60
+ / \    / \
+22 30  44 55
+Now, I want to insert another item 55 into this Heap. How to do this?
+Answer
+A binary heap is defined as a binary tree with two additional constraints:
+Shape property: a binary heap is a complete binary tree; that is, all levels of the tree, except possibly the last one (deepest) are fully filled, and, if the last level of the tree is not complete, the nodes of that level are filled from left to right.
+Heap property: the key stored in each node is either greater than or equal to (≥) or less than or equal to (≤) the keys in the node's children, according to some total order.
+We start adding child from the most left node and if the parent is lower than the newly added child than we replace them. And like so will go on until the child got the parent having value greater than it.
+Your initial tree is:
+     77
+    /  \
+   /    \
+  50    60
+ / \    / \
+22 30  44 55
+Now adding 55 according to the rule on most left side:
+     77
+    /  \
+   /    \
+  50    60
+ / \    / \
+22 30  44 55
+/
+55
+But you see 22 is lower than 55 so replaced it:
+       77
+      /  \
+     /    \
+    50    60
+   / \    / \
+  55 30  44 55
+ /
+22 
+Now 55 has become the child of 50 which is still lower than 55 so replace them too:
+       77
+      /  \
+     /    \
+    55    60
+   / \    / \
+  50 30  44 55
+ /
+22
+Now it cant be sorted more because 77 is greater than 55.
+Having Tech or Coding Interview? Check 👉 12 Heaps and Maps Interview Questions
+Source: stackoverflow.com
+Q7: Return the N-th value of the Fibonacci sequence Recursively
+Junior 
+  Fibonacci Series  14  
+Answer
+Recursive solution looks pretty simple (see code).
+Let’s look at the diagram that will help you understand what’s going on here with the rest of our code. Function fib is called with argument 5:
+Basically our fib function will continue to recursively call itself creating more and more branches of the tree until it hits the base case, from which it will start summing up each branch’s return values bottom up, until it finally sums them all up and returns an integer equal to 5.
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+In case of recursion the solution take exponential time, that can be explained by the fact that the size of the tree exponentially grows when n increases. So for every additional element in the Fibonacci sequence we get an increase in function calls. Big O in this case is equal to O(2n). Exponential Time complexity denotes an algorithm whose growth doubles with each addition to the input data set.
+Implementation
+JavaScript JS
+Java Java
+Python PY
+function fib(n) {
+  if (n < 2){
+    return n
+  }
+  return fib(n - 1) + fib (n - 2)
+}
+Having Tech or Coding Interview? Check 👉 14 Fibonacci Series Interview Questions
+Source: medium.com
+Q8: Return the N-th value of the Fibonacci sequence. Solve in O(n) time
+Junior 
+  Fibonacci Series  14  
+Answer
+The easiest solution that comes to mind here is iteration:
+function fib(n){
+  let arr = [0, 1];
+  for (let i = 2; i < n + 1; i++){
+    arr.push(arr[i - 2] + arr[i -1])
+  }
+ return arr[n]
+}
+And output:
+fib(4)
+=> 3
+Notice that two first numbers can not really be effectively generated by a for loop, because our loop will involve adding two numbers together, so instead of creating an empty array we assign our arr variable to [0, 1] that we know for a fact will always be there. After that we create a loop that starts iterating from i = 2 and adds numbers to the array until the length of the array is equal to n + 1. Finally, we return the number at n index of array.
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+An algorithm in our iterative solution takes linear time to complete the task. Basically we iterate through the loop n-2 times, so Big O (notation used to describe our worst case scenario) would be simply equal to O(n) in this case. The space complexity is O(n).
+Implementation
+JavaScript JS
+Java Java
+Python PY
+function fib(n){
+  let arr = [0, 1]
+  for (let i = 2; i < n + 1; i++){
+    arr.push(arr[i - 2] + arr[i -1])
+  }
+ return arr[n]
+}
+Having Tech or Coding Interview? Check 👉 14 Fibonacci Series Interview Questions
+Source: medium.com
+ Full-Stack, Web & Mobile
+ Algorithms & Data Structures
+ System Design & Architecture
+  Azure  59  
+  WPF  46  
+  ASP.NET MVC  36  
+  T-SQL  51  
+  Agile & Scrum  47  
+  Objective-C  43  
+  jQuery  51  
+  OOP  58  
+  Python  112  
+  Node.js  126  
+🤖 Having Machine Learning & DS Interview? Check  MLStack.Cafe - 1704 Data Science & ML Interview Questions & Answers!
+Q9: Reverse a String using Stack
+Junior 
+  Stacks  25  
+Answer
+The followings are the steps to reversing a String using Stack:
+String to char[].
+Create a Stack.
+Push all characters, one by one.
+Then Pop all characters, one by one and put into the char[].
+Finally, convert to the String.
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Implementation
+Java Java
+public static String reverse(String str) {
+    char[] charArr = str.toCharArray();
+    int size = charArr.length;
+    Stack stack = new Stack(size);
+
+    int i;
+    for (i = 0; i < size; ++i) {
+        stack.push(charArr[i]);
+    }
+
+    for (i = 0; i < size; ++i) {
+        charArr[i] = stack.pop();
+    }
+
+    return String.valueOf(charArr);
+}
+Having Tech or Coding Interview? Check 👉 25 Stacks Interview Questions
+Source: FullStack.Cafe
+50 Junior Web Developer Interview Questions You Can't Miss
+  API Design  46  
+  CSS  50  
+  Design Patterns  68  
+Q10: What is complexity of push and pop for a Stack implemented using a LinkedList?
+Junior 
+  Linked Lists  43  
+Answer
+O(1). Note, you don't have to insert at the end of the list. If you insert at the front of a (singly-linked) list, they are both O(1).
+Stack contains 1,2,3:
+[1]->[2]->[3]
+Push 5:
+[5]->[1]->[2]->[3]
+Pop:
+[1]->[2]->[3] // returning 5
+Having Tech or Coding Interview? Check 👉 43 Linked Lists Interview Questions
+Source: stackoverflow.com
+Q11: What would the number 22 look like as a Byte?
+Junior 
+  Bit Manipulation  12  
+Answer
+A byte is made up of 8 bits and the highest value of a byte is 255, which would mean every bit is set.
+Now:
+1 Byte ( 8 bits )
+Place Value 128 64 32 16 8 4 2 1
+  0
+0
+0
+1
+0
+1
+1
+0
+=
+22
+
+Lets take it right to left and add up all those values together:
+128 0 + 64 0 + 32 0 + 16 1 + 8 0 + 4 1 + 2 1 + 1 0 = 22
+Having Tech or Coding Interview? Check 👉 12 Bit Manipulation Interview Questions
+Source: github.com
+Q12: Check if parentheses are balanced using Stack
+Mid 
+  Stacks  25  
+Answer
+One of the most important applications of stacks is to check if the parentheses are balanced in a given expression. The compiler generates an error if the parentheses are not matched.
+Here are some of the balanced and unbalanced expressions:
+Algorithm
+Declare a character stack which will hold an array of all the opening parenthesis.
+Now traverse the expression string exp.
+If the current character is a starting bracket (( or { or [) then push it to stack.
+If the current character is a closing bracket () or } or ]) then pop from stack and if the popped character is the matching starting bracket then fine else parenthesis are not balanced.
+After complete traversal, if there is some starting bracket left in stack then “not balanced”
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+We are traversing through each character of string, Time complexity O(n).
+We are storing the opposite parentheses characters in the stack, in the worst case there can be all the opposite characters in the string, Space complexity O(n).
+Implementation
+JavaScript JS
+Java Java
+Python PY
+let isMatchingBrackets = function (str) {
+    let stack = [];
+    let map = {
+        '(': ')',
+        '[': ']',
+        '{': '}'
+    }
+
+    for (let i = 0; i < str.length; i++) {
+
+        // If character is an opening brace add it to a stack
+        if (str[i] === '(' || str[i] === '{' || str[i] === '[' ) {
+            stack.push(str[i]);
+        }
+        //  If that character is a closing brace, pop from the stack, which will also reduce the length of the stack each time a closing bracket is encountered.
+        else {
+            let last = stack.pop();
+
+            //If the popped element from the stack, which is the last opening brace doesn’t match the corresponding closing brace in the map, then return false
+            if (str[i] !== map[last]) {return false};
+        }
+    }
+    // By the completion of the for loop after checking all the brackets of the str, at the end, if the stack is not empty then fail
+        if (stack.length !== 0) {return false};
+
+    return true;
+}
+Having Tech or Coding Interview? Check 👉 25 Stacks Interview Questions
+Source: medium.com
+Q13: Explain how Heap Sort works
+Mid 
+  Heaps and Maps  12  
+Answer
+Heapsort is a comparison-based sorting algorithm. Heapsort can be thought of as an improved selection sort: like that algorithm, it divides its input into a sorted and an unsorted region, and it iteratively shrinks the unsorted region by extracting the largest element and moving that to the sorted region. The improvement consists of the use of a heap data structure rather than a linear-time search to find the maximum.
+A heap is a complete binary tree (every level filled as much as possible beginning at the left side of the tree) that follows this condition: the value of a parent element is always greater than the values of its left and right child elements. So, by taking advantage of this property, we can pop off the max of the heap repeatedly and establish a sorted array.
+In an array representation of a heap binary tree, this essentially means that for a parent element with an index of i, its value must be greater than its left child [2i+1] and right child [2i+2] (if it has one).
+The HeapSort steps are:
+Create a max heap from the unsorted list
+Swap the max element, located at the root, with the last element
+Re-heapify or rebalance the array again to establish the max heap order. The new root is likely not in its correct place.
+Repeat Steps 2–3 until complete (when the list size is 1)
+Visualisation:
+Complexity:
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Best: O(n log n)
+Average: O(n log n)
+Worst: O(n log n)
+Implementation
+JavaScript JS
+Python PY
+var a = [ 9, 10, 2, 1, 5, 4, 3, 6, 8, 7, 13 ];
+
+function swap(a, i, j) {
+    var tmp = a[i];
+    a[i] = a[j];
+    a[j] = tmp;
+}
+
+function max_heapify(a, i, length) {
+    while (true) {
+        var left = i*2 + 1;
+        var right = i*2 + 2;
+        var largest = i;
+
+        if (left < length && a[left] > a[largest]) {
+            largest = left;
+        }
+
+        if (right < length && a[right] > a[largest]) {
+            largest = right;
+        }
+
+        if (i == largest) {
+            break;
+        }
+
+        swap(a, i, largest);
+        i = largest;
+    }
+}
+
+function heapify(a, length) {
+    for (var i = Math.floor(length/2); i >= 0; i--) {
+        max_heapify(a, i, length);
+    }
+}
+
+function heapsort(a) {
+    heapify(a, a.length);
+
+    for (var i = a.length - 1; i > 0; i--) {
+        swap(a, i, 0);
+        max_heapify(a, 0, i-1);
+    }
+}
+
+heapsort(a);
+Having Tech or Coding Interview? Check 👉 12 Heaps and Maps Interview Questions
+Source: medium.com
+29 T-SQL Interview Questions Devs Must Know (ANSWERED)
+  T-SQL  51  
+Q14: Find all the Permutations of a String
+Mid 
+  Backtracking  8  
+Answer
+A permutation, also called an “arrangement number” or “order,” is a rearrangement of the elements of an ordered list S into a one-to-one correspondence with S itself (or in simple english: permutation is each of several possible ways in which a set or number of things can be ordered or arranged). A string of length n has n! permutation:
+ABC // original string (3)
+ABC ACB BAC BCA CBA CAB // permutations 3! = 6
+To print all permutations of a string use backtracking implemented via recursion:
+Try each of the letters in turn as the first letter and then find all the permutations of the remaining letters using a recursive call.
+The base case is when the input is an empty string the only permutation is the empty string.
+In other words, you simply traverse the tree, and when you reach the leaf you print the permutation. Then you backtrack one level up, and try another option. Moving one level up the tree is what we call the backtracking in this case.
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+For any given string of length n there are n! possible permutations, and we need to print all of them so Time complexity is O(n * n!). The function will be called recursively and will be stored in call stack for all n! permutations, so Space complexity is O(n!).
+Implementation
+JavaScript JS
+Java Java
+Python PY
+// using backtracking
+let permute = (str, left = 0, right = str.length - 1) => {
+  //If left index is equal to right index
+  //Print the string permutation
+  if(left == right){
+    console.log(str);
+  }else{
+    for(let i = left; i <= right; i++){
+      //Swap the letters of the string
+      str = swap(str, left, i);
+      //Generate the permutation with swapped letters
+      permute(str, left+1, right);
+      //Restore the letters back to their position, e.q. backtrack to prev state of the string
+      str = swap(str, left, i);
+    }
+  }
+}
+
+//Function to swap the letters of the string
+let swap = (str, left, right) => {
+  let arr = str.split('');
+  [arr[left], arr[right]] = [arr[right], arr[left]];
+  return arr.join('');
+}
+Having Tech or Coding Interview? Check 👉 8 Backtracking Interview Questions
+Source: stackoverflow.com
+Q15: Floyd's Cycle Detect Algorithm: Explain how to find a starting node of a Cycle in a Linked List?
+Mid 
+  Linked Lists  43  
+Answer
+This is Floyd's algorithm for cycle detection. Once you've found a node that's part of a cycle, how does one find the start of the cycle?
+In the first part of Floyd's algorithm, the hare moves two steps for every step of the tortoise. If the tortoise and hare ever meet, there is a cycle, and the meeting point is part of the cycle, but not necessarily the first node in the cycle.
+Once tortoise and hare meet, let's put tortoise back to the beginning of the list and keep hare where they met (which is k steps away from the cycle beginning). The hypothesis (see math explanation) is that if we let them move at the same speed (1 step for both), the first time they ever meet again will be the cycle beginning.
+Another solution to mention is Hash Map:
+Traverse the nodes list.
+For each node encountered, add it to the identity hash map
+If the node already existed in the identity map then the list has a circular link and the node which was prior to this conflict is known (either check before moving or keep the "last node")
+Implementation
+Java Java
+public ListNode getLoopStartingPoint(ListNode head) {
+    boolean isLoopExists = false;
+    ListNode slowPtr = head, fastPtr = head;
+
+    while (!Objects.isNull(fastPtr) && !Objects.isNull(fastPtr.getNext())) {
+        slowPtr = slowPtr.getNext();
+        fastPtr = fastPtr.getNext().getNext();
+        if (slowPtr == fastPtr) {
+            isLoopExists = true;
+            break;
+        }
+    }
+
+    if (!isLoopExists) return null;
+
+    slowPtr = head;
+    while (slowPtr != fastPtr) {
+        slowPtr = slowPtr.getNext();
+        fastPtr = fastPtr.getNext();
+    }
+    return slowPtr;
+}
+Having Tech or Coding Interview? Check 👉 43 Linked Lists Interview Questions
+Source: stackoverflow.com
+ Full-Stack, Web & Mobile
+ Algorithms & Data Structures
+ System Design & Architecture
+  Reactive Programming  12  
+  Android  113  
+  ADO.NET  33  
+  React Native  72  
+  Design Patterns  68  
+  C#  127  
+  Spring  87  
+  CSS  50  
+  Objective-C  43  
+  React  130  
+🤖 Having Machine Learning & DS Interview? Check  MLStack.Cafe - 1704 Data Science & ML Interview Questions & Answers!
+Q16: Floyd's Cycle Detect Algorithm: How to detect a Cycle (or Loop) in a Linked List?
+Mid 
+  Linked Lists  43  
+Answer
+You can make use of Floyd's cycle-finding algorithm, also known as tortoise and hare algorithm.
+
+The idea is to have two references to the list and move them at different speeds. Move one forward by 1 node and the other by 2 nodes.
+If the linked list has a loop they will definitely meet.
+Else either of the two references(or their next) will become null.
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+We only use two nodes (slow and fast) so the space complexity is O(1).
+Implementation
+Java Java
+Python PY
+boolean hasLoop(Node first) {
+    Node slow = first;
+    Node fast = first;
+
+    while (fast != null && fast.next != null) {
+        slow = slow.next;          // 1 hop
+        fast = fast.next.next;     // 2 hops 
+
+        if (slow == fast)  // fast caught up to slow, so there is a loop
+            return true;
+    }
+    return false;  // fast reached null, so the list terminates
+}
+Having Tech or Coding Interview? Check 👉 43 Linked Lists Interview Questions
+Source: stackoverflow.com
+Q17: Floyd's Cycle Detect Algorithm: Remove Cycle (Loop) from a Linked List
+Mid 
+  Linked Lists  43  
+Answer
+Floyd's cycle detect algorithm, also called the tortoise and hare algorithm as it involves using two pointers/references that move at different speeds, is one way of detecting the cycle. If there is a cycle, the two pointers (say slow and fast) will end up pointing to the same element after a finite number of steps. Interestingly, it can be proved that the element at which they meet will be the same distance to the start of the loop (continuing to traverse the list in the same, forward direction) as the start of the loop is to the head of the list. That is, if the linear part of the list has k elements, the two pointers will meet inside the loop of length m at a point m-k from the start of the loop or k elements to the 'end' of the loop (of course, it's a loop so it has no 'end' - it's just the 'start' once again). And that gives us a way to find the start of the loop:
+Once a cycle has been detected, let fast remain pointing to the element where the loop for the step above terminated but reset slow so that it's pointing back to the head of the list. Now, move each pointer one element at a time. Since fast began inside the loop, it will continue looping. After k steps (equal to the distance of the start of the loop from the head of the list), slow and fast will meet again. This will give you a reference to the start of the loop.
+It is now easy to set slow (or fast) to point to the element starting the loop and traverse the loop until slow ends up pointing back to the starting element. At this point slow is referencing the 'last' element list and it's next pointer can be set to null.
+Implementation
+Java Java
+public static LinkedListNode lastNodeOfTheLoop(LinkedListNode head) {
+    LinkedListNode slow = head;
+    LinkedListNode fast = head; 
+
+    // find meeting point using Tortoise and Hare algorithm
+    // this is just Floyd's cycle detection algorithm
+    while (fast.next != null) { 
+        slow = slow.next; 
+        fast = fast.next.next; 
+        if (slow == fast) { 
+            break; 
+        }
+    }
+
+    // Error check - there is no meeting point, and therefore no loop
+    if (fast.next == null) {
+        return null;
+    }
+
+    slow = head; 
+    // Until both the references are one short of the common element which is the start of the loop
+    while (slow.next != fast.next) { 
+        slow = slow.next; 
+        fast = fast.next; 
+    }
+    // Now fast points to the start of the loop (inside cycle).
+    return fast;
+}
+
+LinkedListNode lastNodeOfTheLoop = findStartOfLoop(head);
+lastNodeOfTheLoop.next = null; // or lastNodeOfTheLoop.next = head;
+Having Tech or Coding Interview? Check 👉 43 Linked Lists Interview Questions
+Source: stackoverflow.com
+12 Hashmap (Hash Table) Interview Questions For Coding Interview
+  Hash Tables  31  
+  Linked Lists  43  
+Q18: Get the N-th Fibonacci number with O(n) time and O(1) space complexity
+Mid 
+  Fibonacci Series  14  
+Answer
+Consider:
+function fibs(n){
+  let [a, b] = [0, 1]
+  while (n > 0){
+    [a, b] = [b, a + b]
+    n -= 1
+  }
+  return a
+}
+This solution is in linear O(n) time complexity, and constant O(1) space complexity. The number of loops it takes to calculate the nth fib number will still increase at a linear rate as n increases, but we are overriding the previous numbers in the sequence as we build it out, making the space complexity constant for any input n. It's also called Iterative Top-Down Approach.
+Implementation
+JavaScript JS
+Python PY
+function fibs(n){
+  let [a, b] = [0, 1]
+  while (n > 0){
+    [a, b] = [b, a + b]
+    n -= 1
+  }
+  return a
+}
+Having Tech or Coding Interview? Check 👉 14 Fibonacci Series Interview Questions
+Source: medium.com
+Q19: How to check if String is a Palindrome?
+Mid 
+  Strings  25  
+Answer
+A palindrome is a word, phrase, number or other sequence of units that can be read the same way in either direction. You can check if a string is a palindrome by comparing it to the reverse of itself either using simple loop or recursion.
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+The time complexity is O(n/2) that is still O(n). We doing n comparisons, where n = s.length(). Each comparison takes O(1) time, as it is a single character comparison. You can cut the complexity of the function in half by stopping at i == (s.length() / 2)+1. It is not relevant in Big O terms, but it is still a pretty decent gain. Loop approach has constant space complexity O(1) as we not allocating any new memory. Reverse string approach needs O(n) additional memory to create a reversed copy of a string. Recursion approach has O(n) space complexity due call stack.
+Implementation
+Java Java
+Python PY
+Loop:
+boolean isPalindrome(String str) {    
+    int n = str.length();
+    for( int i = 0; i < n/2; i++ )
+        if (str.charAt(i) != str.charAt(n-i-1)) return false;
+    return true;    
+}
+Recursion:
+private boolean isPalindrome(String s) {
+    int length = s.length();
+    if (length < 2) return true;
+    return s.charAt(0) != s.charAt(length - 1) ? false :
+            isPalindrome(s.substring(1, length - 1));
+}
+You may want to solve the problem by inverting the original string in a whole but note the space complexity will be worst than for the loop solution (O(n) instead of O(1)):
+public static boolean isPalindrome(String str) {
+    return str.equals(new StringBuilder(str).reverse().toString());
+}
+Having Tech or Coding Interview? Check 👉 25 Strings Interview Questions
+Source: stackoverflow.com
+Q20: How to check if two Strings (words) are Anagrams?
+Mid 
+  Strings  25  
+Problem
+Explain what is space complexity of that solution?
+Answer
+Two words are anagrams of each other if they contain the same number of characters and the same characters. There are two solutions to mention:
+You should only need to sort the characters in lexicographic order, and determine if all the characters in one string are equal to and in the same order as all of the characters in the other string. If you sort either array, the solution becomes O(n log n).
+Hashmap approach where key - letter and value - frequency of letter,
+for first string populate the hashmap O(n)
+for second string decrement count and remove element from hashmap O(n)
+if hashmap is empty, the string is anagram otherwise not.
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+The major space cost in your code is the hashmap which may contain a frequency counter for each lower case letter from a to z. So in this case, the space complexity is supposed to be constant O(26).
+To make it more general, the space complexity of this problem is related to the size of alphabet for your input string. If the input string only contains ASCII characters, then for the worst case you will have O(256) as your space cost. If the alphabet grows to the UNICODE set, then the space complexity will be much worse in the worst scenario.
+So in general its O(size of alphabet).
+Implementation
+C# CS
+Java Java
+Python PY
+public static bool AreAnagrams(string s1, string s2)
+{
+  if (s1 == null) throw new ArgumentNullException("s1");
+  if (s2 == null) throw new ArgumentNullException("s2");
+
+  var chars = new Dictionary<char, int>();
+  foreach (char c in s1)
+  {
+      if (!chars.ContainsKey(c))
+          chars[c] = 0;
+      chars[c]++;
+  }
+  foreach (char c in s2)
+  {
+      if (!chars.ContainsKey(c))
+          return false;
+      chars[c]--;
+  }
+
+  return chars.Values.All(i => i == 0);
+}
+Having Tech or Coding Interview? Check 👉 25 Strings Interview Questions
+Source: stackoverflow.com
+Q21: How to find Nth element from the end of a singly Linked List?
+Mid 
+  Linked Lists  43  
+Answer
+Use lockstep solution. The key to this algorithm is to set two pointers p1 and p2 apart by n-1 nodes initially so we want p2 to point to the (n-1)th node from the start of the list then we move p2 till it reaches the last node of the list. Once p2 reaches end of the list p1 will be pointing to the Nth node from the end of the list.
+This lockstep approach will generally give better cache utilization, because a node hit by the front pointer may still be in cache when the rear pointer reaches it. In a language implementation using tracing garbage collection, this approach also avoids unnecessarily keeping the beginning (thus entire) list live for the duration of the operation.
+Another solution is to use circular buffer. Keep a circular buffer of size x and add the nodes to it as you traverse the list. When you reach the end of the list, the x'th one from the tail is equal to the next entry in the circular buffer.
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+The lockstep approach moves all array elements in every step, resulting in a O(n + x2) running time, whereas circular buffer approach uses a circular array and runs in O(n). The circular buffer solution requires an additional x in memory.
+Implementation
+Java Java
+// Function to return the nth node from the end of a linked list.
+// Takes the head pointer to the list and n as input
+// Returns the nth node from the end if one exists else returns NULL.
+LinkedListNode nthToLast(LinkedListNode head, int n) {
+  // If list does not exist or if there are no elements in the list,return NULL
+  if (head == null || n < 1) {
+    return null;
+  }
+
+  // make pointers p1 and p2 point to the start of the list.
+  LinkedListNode p1 = head;
+  LinkedListNode p2 = head;
+
+  // The key to this algorithm is to set p1 and p2 apart by n-1 nodes initially
+  // so we want p2 to point to the (n-1)th node from the start of the list
+  // then we move p2 till it reaches the last node of the list. 
+  // Once p2 reaches end of the list p1 will be pointing to the nth node 
+  // from the end of the list.
+
+  // loop to move p2.
+  for (int j = 0; j < n - 1; ++j) { 
+   // while moving p2 check if it becomes NULL, that is if it reaches the end
+   // of the list. That would mean the list has less than n nodes, so its not 
+   // possible to find nth from last, so return NULL.
+   if (p2 == null) {
+       return null; 
+   }
+   // move p2 forward.
+   p2 = p2.next;
+  }
+
+  // at this point p2 is (n-1) nodes ahead of p1. Now keep moving both forward
+  // till p2 reaches the last node in the list.
+  while (p2.next != null) {
+    p1 = p1.next;
+    p2 = p2.next;
+  }
+
+   // at this point p2 has reached the last node in the list and p1 will be
+   // pointing to the nth node from the last..so return it.
+   return p1;
+ }
+Circular buffer approach:
+Node getNodeFromTail(Node head, int x) {
+  // Circular buffer with current index of of iteration.
+  int[] buffer = new int[x];
+  int i = 0;
+
+  do {
+    // Place the current head in its position in the buffer and increment
+    // the head and the index, continuing if necessary.
+    buffer[i++ % x] = head;
+    head = head.next;
+  } while (head.next != NULL);
+
+  // If we haven't reached x nodes, return NULL, otherwise the next item in the
+  // circular buffer holds the item from x heads ago.
+  return (i < x) ? NULL : buffer[++i % x];
+}
+Having Tech or Coding Interview? Check 👉 43 Linked Lists Interview Questions
+Source: stackoverflow.com
+27 SOA Interview Questions (ANSWERED) Devs Need To Clarify
+  API Design  46  
+  GraphQL  25  
+  Microservices  34  
+Q22: How to merge two sorted Arrays into a Sorted Array?
+Mid 
+  Arrays  21  
+Answer
+Let's look at the merge principle:
+Given two separate lists A and B ordered from least to greatest, construct a list C by:
+repeatedly comparing the least value of A to the least value of B,
+removing (or moving a pointer) the lesser value, and appending it onto C.
+when one list is exhausted, append the remaining items in the other list onto C in order.
+The list C is then also a sorted list.
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+This problem will have O(n) complexity at best.
+Implementation
+JavaScript JS
+Java Java
+Python PY
+function merge(a, b) {
+    var result = [];
+    var ai = 0;
+    var bi = 0;
+    while (true) {
+        if ( ai < a.length && bi < b.length) {
+            if (a[ai] < b[bi]) {
+                result.push(a[ai]);
+                ai++;
+            } else if (a[ai] > b[bi]) {
+                result.push(b[bi]);
+                bi++;
+            } else {
+                result.push(a[ai]);
+                result.push(b[bi]);
+                ai++;
+                bi++;
+            }
+        } else if (ai < a.length) {
+            result.push.apply(result, a.slice(ai, a.length));
+            break;
+        } else if (bi < b.length) {
+            result.push.apply(result, b.slice(bi, b.length));
+            break;
+        } else {
+            break;
+        }
+    }
+    return result;
+}
+Having Tech or Coding Interview? Check 👉 21 Arrays Interview Questions
+Source: stackoverflow.com
+ Full-Stack, Web & Mobile
+ Algorithms & Data Structures
+ System Design & Architecture
+  Swift  72  
+  UX Design  78  
+  LINQ  38  
+  jQuery  51  
+  Entity Framework  57  
+  HTML5  55  
+  Web Security  58  
+  Git  36  
+  TypeScript  91  
+  Redis  25  
+🤖 Having Machine Learning & DS Interview? Check  MLStack.Cafe - 1704 Data Science & ML Interview Questions & Answers!
+Q23: Implement Double Linked List from Stack with min complexity
+Mid 
+  Linked Lists  43  
+Answer
+Imagine all items are organized into two stacks, draw them facing each other where face is where you put and peek:
+1,2,3,4-><-5,6,7,8
+now you can move 4 to 5:
+1,2,3-><-4,5,6,7,8
+and 3 to 4:
+1,2-><-3,4,5,6,7,8
+and you can go backwards.
+You may also need another two stacks so that you can traverse List via the tail:
+1,2,3,4 -> <-5,6,7,8 // first pair of stacks
+8,7,6,5 -> <-4,3,2,1 // second pair of stacks kept in reverse order
+once current stack runs out
+empty-><-1,2,3,4,5,6,7,8 // first pair of stacks is currently being traversed
+empty-><-8,7,6,5,4,3,2,1 // second pair of stacks
+simply switch to the second pair of stacks!
+Implementation
+Java Java
+import java.util.Stack;
+
+class DoubleLinkedList{
+ Stack<Integer> s;
+ Stack<Integer> t;
+ int count;
+ DoubleLinkedList(){
+  s = new Stack<Integer>();
+  t = new Stack<Integer>();
+  count = 0;
+ }
+
+ public void insertInBeginning(int data){
+  while(!s.isEmpty()){
+   t.push(s.pop());
+  }
+  s.push(data);
+  count++;
+ }
+
+ public void insertAtEnd(int data){
+  while(!t.isEmpty()){
+   s.push(t.pop());
+  }
+  t.push(data);
+  count++;
+ }
+
+ public void moveForward(){
+  while(!t.isEmpty()){
+   int temp = t.pop();
+   System.out.println(temp);
+   s.push(temp);
+  }
+ }
+
+ public void moveBackward(){
+  while(!s.isEmpty()){
+   int temp = s.pop();
+   System.out.println(temp);
+   t.push(temp);
+  }
+ }
+
+ public void delete(int data){
+  while(!s.isEmpty()){
+   t.push(s.pop());
+  }
+  while(!t.isEmpty()){
+   if(t.peek() == data){
+    t.pop();
+    return;
+   }
+   else{
+    s.push(t.pop());
+   }
+  }
+ }
+
+ public void deleteFirst(){
+  while(!s.isEmpty()){
+   int temp = s.pop();
+   if(s.peek() == null){
+    return;
+   }
+   t.push(temp);
+  }
+ }
+
+ public void deleteLast(){
+  while(!t.isEmpty()){
+   int temp = t.pop();
+   if(t.peek() == null){
+    return;
+   }
+   s.push(temp);
+  }
+ }
+}
+Having Tech or Coding Interview? Check 👉 43 Linked Lists Interview Questions
+Source: www.careercup.com
+Q24: Merge two sorted singly Linked Lists without creating new nodes
+Mid 
+  Linked Lists  43  
+Problem
+You have two singly linked lists that are already sorted, you have to merge them and return a the head of the new list without creating any new extra nodes. The returned list should be sorted as well.
+The method signature is:
+Node MergeLists(Node list1, Node list2);
+Node class is below:
+class Node{
+   int data;
+   Node next;
+}
+Example:
+Input: 1->2->4, 1->3->4
+Output: 1->1->2->3->4->4
+Answer
+Here is the algorithm on how to merge two sorted linked lists A and B:
+while A not empty or B not empty:
+   if first element of A < first element of B:
+      remove first element from A
+      insert element into C
+   end if
+   else:
+      remove first element from B
+      insert element into C
+end while
+Here C will be the output list.
+There are two solutions possible:
+Recursive approach is
+Of the two nodes passed, keep the node with smaller value
+Point the smaller node's next to the next smaller value of remaining of the two linked lists
+Return the current node (which was smaller of the two nodes passed to the method)
+Iterative approach is better for all practical purposes as scales as size of lists swells up:
+Treat one of the sorted linked lists as list, and treat the other sorted list as `bag of nodes'.
+Then we lookup for correct place for given node (from bag of nodes) in the list.
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+The run time complexity for the recursive and iterative solution here or the variant is O(n).
+Implementation
+Java Java
+Python PY
+Recursive solution:
+Node MergeLists(Node list1, Node list2) {
+  if (list1 == null) return list2;
+  if (list2 == null) return list1;
+
+  if (list1.data < list2.data) {
+    list1.next = MergeLists(list1.next, list2);
+    return list1;
+  } else {
+    list2.next = MergeLists(list2.next, list1);
+    return list2;
+  }
+}
+Recursion should not be needed to avoid allocating a new node:
+Node MergeLists(Node list1, Node list2) {
+  if (list1 == null) return list2;
+  if (list2 == null) return list1;
+
+  Node head;
+  if (list1.data < list2.data) {
+    head = list1;
+  } else {
+    head = list2;
+    list2 = list1;
+    list1 = head;
+  }
+  while(list1.next != null) {
+    if (list1.next.data > list2.data) {
+      Node tmp = list1.next;
+      list1.next = list2;
+      list2 = tmp;
+    }
+    list1 = list1.next;
+  } 
+  list1.next = list2;
+  return head;
+}
+Having Tech or Coding Interview? Check 👉 43 Linked Lists Interview Questions
+Source: stackoverflow.com
+Q25: Remove Invalid Parentheses
+Mid 
+  Strings  25  
+Answer
+We all know how to check a string of parentheses is valid using a stack. Or even simpler use a counter. The counter will increase when it is ( and decrease when it is ). Whenever the counter is negative, we have more ) than ( in the prefix.
+To make the prefix valid, we need to remove a ). The problem is: which one? The answer is any one in the prefix. However, if we remove any one, we will generate duplicate results, for example: s = ()), we can remove s[1] or s[2] but the result is the same (). Thus, we restrict ourself to remove the first ) in a series of concecutive )s.
+After the removal, the prefix is then valid. We then call the function recursively to solve the rest of the string. However, we need to keep another information: the last removal position. If we do not have this position, we will generate duplicate by removing two ) in two steps only with a different order. For this, we keep tracking the last removal position and only remove ) after that.
+Now one may ask. What about (? What if s = (()(() in which we need remove (? The answer is: do the same from right to left. However a cleverer idea is: reverse the string and reuse the code!
+Implementation
+Java Java
+public List<String> removeInvalidParentheses(String s) {
+    List<String> ans = new ArrayList<>();
+    remove(s, ans, 0, 0, new char[]{'(', ')'});
+    return ans;
+}
+
+public void remove(String s, List<String> ans, int last_i, int last_j,  char[] par) {
+    for (int stack = 0, i = last_i; i < s.length(); ++i) {
+        if (s.charAt(i) == par[0]) stack++;
+        if (s.charAt(i) == par[1]) stack--;
+        if (stack >= 0) continue;
+        for (int j = last_j; j <= i; ++j)
+            if (s.charAt(j) == par[1] && (j == last_j || s.charAt(j - 1) != par[1]))
+                remove(s.substring(0, j) + s.substring(j + 1, s.length()), ans, i, j, par);
+        return;
+    }
+    String reversed = new StringBuilder(s).reverse().toString();
+    if (par[0] == '(') // finished left to right
+        remove(reversed, ans, 0, 0, new char[]{')', '('});
+    else // finished right to left
+        ans.add(reversed);
+}
+Having Tech or Coding Interview? Check 👉 25 Strings Interview Questions
+Source: leetcode.com
+27 SOA Interview Questions (ANSWERED) Devs Need To Clarify
+  API Design  46  
+  GraphQL  25  
+  Microservices  34  
+Q26: Sort a Stack using Recursion
+Mid 
+  Sorting  26  
+Problem
+Note we can't use another stack or queue.
+Answer
+The idea of the solution is to hold all values in system stack until the stack becomes empty. When the stack becomes empty, insert all held items one by one in sorted order.
+Complexity Analysis
+Time:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Space:
+Constant
+O(1)
+Dbl. Logarithmic
+O(log log n)
+Logarithmic
+O(log n)
+Square Root
+O(√n)
+Linear
+O(n)
+Linearithmic
+O(n log n)
+Quadratic
+O(n2)
+Exponential
+O(2n)
+Factorial
+O(n!)
+Implementation
+Java Java
+Python PY
+void sort(stack s) {
+    if (!IsEmpty(s)) {
+        int x = Pop(s);
+        sort(s);
+        insert(s, x);
+    }
+}
+
+void insert(stack s, int x) {
+    if (!IsEmpty(s)) {  
+        int y = Top(s);
+        if (x < y) {
+            Pop(s);
+            insert(s, x);
+            Push(s, y);
+        } else {
+            Push(s, x);
+        }
+    } else {
+        Push(s, x); 
+    }
+}
+Having Tech or Coding Interview? Check 👉 26 Sorting Interview Questions
+Source: afteracademy.com
+Q27: Sort a Stack using another Stack
+Mid 
+  Sorting  26  
+Answer
+A stack performs push and pop operations. So, the push and pop operations are carried out between the input_stack and the auxilary_stack in such a way that the auxiliary stack contains the sorted input stack.
+Solution Steps:
+Create a temporary stack say aux_stack.
+Repeat until the input_stack is not empty
+Pop an element from input_stack call it temp_value.
+While aux_stack is not empty and top of the aux_stack < temp_value, pop data from aux_stack and push it to the input_stack
+Push temp_value to the aux_stack
+return the aux_stack.
+Implementation
+Java Java
+Python PY
+Stack sort_stack(Stack input_stack) {
+    Stack aux_stack
+    while(!input_stack.empty())
+    {
+        int temp_value = input_stack.top()
+        input_stack.pop()
+        while(!aux_stack.empty() and aux_stack.top() > temp) {
+            input_stack.push(aux_stack.top())
+            aux_stack.pop()
+        }
+        aux_stack.push(temp_value)
+    }
+    return aux_stack
+}
+Having Tech or Coding Interview? Check 👉 26 Sorting Interview Questions
+Source: afteracademy.com
+Q28: Write a program for Recursive Binary Search
+Mid 
+  Searching  24  
+Answer
+The first difference is that the while loop from iterative approach is replaced by a recursive call back to the same method with the new values of low and high passed to the next recursive invocation along with Array and key or target element.
+The second difference is that instead of returning false when the while loop exits in the iterative version, in case of the recursive version, the condition of low > high is checked at the beginning of the next level of recursion and acts as the boundary condition for stopping further recursive calls by returning false.
+Also, note that the recursive invocations of binarySearch() return back the search result up the recursive call stack so that true or false return value is passed back up the call stack without any further processing.
+To further optimize the solution, in term of running time, we could consider implement the tail-recursive solution, where the stack trace of the algorithm would not pile up, which leads to a less memory footprint during the running time. To have the tail-recursive solution, the trick is to simply return the result from the next recursive function instead of further processing.
+Implementation
+JavaScript JS
+Java Java
+Python PY
+function binarySearch(sortedArray, searchValue, minIndex, maxIndex) {
+    var currentIndex;
+    var currentElement;
+
+    while (minIndex <= maxIndex) {
+        // Find the value of the middle of the array
+        var middleIndex = (minIndex + maxIndex) / 2 | 0;
+        currentElement = sortedArray[middleIndex];
+        
+        // It's the same as the value in the middle - we can return!
+        if (currentElement === searchValue)
+        {
+          return middleIndex;
+        }
+        // Is the value less than the value in the middle of the array
+        if (currentElement < searchValue) {
+          return binarySearch(sortedArray, searchValue, middleIndex + 1, maxIndex);
+        }
+        // Is the value greater than the value in the middle of the array
+        if (currentElement > searchValue) {
+          return binarySearch(sortedArray, searchValue, minIndex, middleIndex - 1);
+        }
+    }
+
+    return -1;
+}
+Having Tech or Coding Interview? Check 👉 24 Searching Interview Questions
+Source: iq.opengenus.org
+Q29: Explain Knuth-Morris-Pratt (KMP) Algorithm in Plain English
+Senior 
+  Strings  25  
+Answer
+Join FullStack.Cafe to open this Answer. It's Free!
+  Get Free Access To Answer
+Join 120k+ Developer Who Trust FullStack.Cafe
+ Full-Stack, Web & Mobile
+ Algorithms & Data Structures
+ System Design & Architecture
+  Golang  49  
+  Redis  25  
+  UX Design  78  
+  Azure Service Bus  25  
+  Ionic  29  
+  Flutter  67  
+  Vue.js  41  
+  PWA  22  
+  C#  127  
+  Kotlin  68  
+🤖 Having Machine Learning & DS Interview? Check  MLStack.Cafe - 1704 Data Science & ML Interview Questions & Answers!
+13 Repository Pattern and UoW Interview Questions (ANSWERED)
+  Design Patterns  68  
+Q30: Find Merge (Intersection) Point of Two Linked Lists
+Senior 
+  Linked Lists  43  
+Answer
+Join FullStack.Cafe to open this Answer. It's Free!
+  Get Free Access To Answer
+Join 120k+ Developer Who Trust FullStack.Cafe
+Q31: Flip k least significant bits in an integer
+Senior 
+  Bit Manipulation  12  
+Answer
+Join FullStack.Cafe to open this Answer. It's Free!
+  Get Free Access To Answer
+Join 120k+ Developer Who Trust FullStack.Cafe
+Q32: Given a singly Linked List, determine if it is a Palindrome
+Senior 
+  Linked Lists  43  
+Answer
+Join FullStack.Cafe to open this Answer. It's Free!
+  Get Free Access To Answer
+Join 120k+ Developer Who Trust FullStack.Cafe
+Q33: How come that hash values are not reversible?
+Senior 
+  Web Security  58  
+Answer
+Join FullStack.Cafe to open this Answer. It's Free!
+  Get Free Access To Answer
+Join 120k+ Developer Who Trust FullStack.Cafe
+35 LINQ Interview Questions and Answers
+  LINQ  38  
+Q34: How implement a Queue using only One (1) Stack?
+Senior 
+  Stacks  25  
+Answer
+Join FullStack.Cafe to open this Answer. It's Free!
+  Get Free Access To Answer
+Join 120k+ Developer Who Trust FullStack.Cafe
+Q35: How to implement 3 Stacks with one Array?
+Senior 
+  Arrays  21  
+Answer
+Join FullStack.Cafe to open this Answer. It's Free!
+  Get Free Access To Answer
+Join 120k+ Developer Who Trust FullStack.Cafe
+Q36: How to recursively reverse a Linked List?
+Senior 
+  Linked Lists  43  
+Answer
+Join FullStack.Cafe to open this Answer. It's Free!
+  Get Free Access To Answer
+Join 120k+ Developer Who Trust FullStack.Cafe
+ Full-Stack, Web & Mobile
+ Algorithms & Data Structures
+ System Design & Architecture
+  Laravel  41  
+  Redux  35  
+  MySQL  60  
+  Redis  25  
+  OOP  58  
+  PWA  22  
+  React Hooks  46  
+  .NET Core  68  
+  Xamarin  83  
+  WPF  46  
+🤖 Having Machine Learning & DS Interview? Check  MLStack.Cafe - 1704 Data Science & ML Interview Questions & Answers!
+Q37: How to use Memoization for N-th Fibonacci number?
+Senior 
+  Dynamic Programming  12  
+Answer
+Join FullStack.Cafe to open this Answer. It's Free!
+  Get Free Access To Answer
+Join 120k+ Developer Who Trust FullStack.Cafe
+22 Dart Interview Questions (ANSWERED) Flutter Dev Must Know
+  Flutter  67  
+Q38: Copy a Linked List with Random (Arbitrary) Pointer using O(1) Space
+Expert 
+  Linked Lists  43  
+Answer
+Unlock FullStack.Cafe to open all answers and get your next figure job offer!
+Share this blog post to open Expert question!
+Q39: Find all the repeating substrings in a given String (or DNA chromosome sequence)
+Expert 
+  Strings  25  
+Answer
+Unlock FullStack.Cafe to open all answers and get your next figure job offer!
+Share this blog post to open Expert question!
+Q40: How to check for braces balance in a really large (1T) file in parallel?
+Expert 
+  Stacks  25  
+Answer
+Unlock FullStack.Cafe to open all answers and get your next figure job offer!
+Share this blog post to open Expert question!
+ Unlock 3877 Answers
+ 
